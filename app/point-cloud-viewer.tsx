@@ -6,20 +6,48 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
 import { assetUrl } from './asset-url';
 
-const PREVIEW_URL = assetUrl('/media/floor1-0505-run1-preview.ply');
+const COMPARISON_PREFIX = '/media/comparison/floor1-0505-run1';
+const FIXED_VIEWS = {
+  gt: { label: 'Ground truth', suffix: 'gt' },
+  ours: { label: 'Ours', suffix: 'ours' },
+} as const;
 
-export default function PointCloudViewer() {
+const COMPARISON_METHODS = [
+  { label: 'PanoVGGT', suffix: 'panovggt' },
+  { label: 'VGGT-SLAM2', suffix: 'vggt-slam2' },
+  { label: 'MASt3R-SLAM', suffix: 'mast3r-slam' },
+  { label: 'PatchMatch', suffix: 'patchmatch' },
+  { label: 'VGGT', suffix: 'vggt' },
+] as const;
+
+function getPointCloudUrl(suffix: string) {
+  if (!suffix) return null;
+  return assetUrl(`${COMPARISON_PREFIX}-${suffix}.ply`);
+}
+
+type PointCloudPanelProps = {
+  title: string;
+  sourceUrl: string | null;
+  loadHint: string;
+};
+
+function PointCloudPanel({ title, sourceUrl, loadHint }: PointCloudPanelProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [nearViewport, setNearViewport] = useState(false);
-  const [status, setStatus] = useState('Scroll to load the 3D preview');
+  const [status, setStatus] = useState(loadHint);
+
+  useEffect(() => {
+    setNearViewport(false);
+    setStatus(sourceUrl ? loadHint : 'Configure a file suffix for this method.');
+  }, [loadHint, sourceUrl]);
 
   useEffect(() => {
     const element = containerRef.current;
-    if (!element) return;
+    if (!element || !sourceUrl) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setStatus('Loading point cloud…');
+          setStatus('Loading point cloud...');
           setNearViewport(true);
           observer.disconnect();
         }
@@ -28,11 +56,11 @@ export default function PointCloudViewer() {
     );
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [sourceUrl]);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || !nearViewport) return;
+    if (!container || !nearViewport || !sourceUrl) return;
 
     let disposed = false;
     let points: THREE.Points | null = null;
@@ -50,7 +78,11 @@ export default function PointCloudViewer() {
         powerPreference: 'high-performance',
       });
     } catch {
-      queueMicrotask(() => { if (!disposed) setStatus('Interactive preview is unavailable in this browser.'); });
+      queueMicrotask(() => {
+        if (!disposed) {
+          setStatus('Interactive preview is unavailable in this browser.');
+        }
+      });
       return;
     }
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -84,7 +116,7 @@ export default function PointCloudViewer() {
     resize();
 
     new PLYLoader().load(
-      PREVIEW_URL,
+      sourceUrl,
       (geometry) => {
         if (disposed) {
           geometry.dispose();
@@ -110,11 +142,7 @@ export default function PointCloudViewer() {
         const distance =
           sphere.radius /
           Math.tan(THREE.MathUtils.degToRad(camera.fov * 0.48));
-        initialCamera.set(
-          distance * 0.72,
-          distance * 0.48,
-          distance * 0.72,
-        );
+        initialCamera.set(distance * 0.72, distance * 0.48, distance * 0.72);
         camera.near = Math.max(distance / 1000, 0.01);
         camera.far = distance * 12;
         camera.updateProjectionMatrix();
@@ -145,21 +173,78 @@ export default function PointCloudViewer() {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [nearViewport]);
+  }, [nearViewport, sourceUrl]);
 
   return (
-    <div
-      className="point-cloud-viewer"
-      ref={containerRef}
-      aria-label="Interactive reconstruction preview"
-    >
-      {status && <p className="viewer-status">{status}</p>}
+    <section className="point-cloud-panel" aria-label={`${title} reconstruction preview`}>
+      <div className="point-cloud-stage" ref={containerRef}>
+        {status && <p className="viewer-status">{status}</p>}
+        <button className="viewer-reset" type="button" data-reset-view>
+          Reset view
+        </button>
+      </div>
+    </section>
+  );
+}
+
+export default function PointCloudViewer() {
+  const [selectedMethodLabel, setSelectedMethodLabel] = useState<string>(
+    COMPARISON_METHODS[0]?.label ?? '',
+  );
+
+  const selectedMethod =
+    COMPARISON_METHODS.find(
+      (method) => method.label === selectedMethodLabel,
+    ) ?? COMPARISON_METHODS[0];
+
+  return (
+    <div className="point-cloud-viewer-grid" aria-label="Interactive reconstruction preview comparison">
+      <div className="point-cloud-columns">
+        <div className="point-cloud-column">
+          <div className="point-cloud-panel-header">
+            <h3>{FIXED_VIEWS.gt.label}</h3>
+          </div>
+          <PointCloudPanel
+            title={FIXED_VIEWS.gt.label}
+            sourceUrl={getPointCloudUrl(FIXED_VIEWS.gt.suffix)}
+            loadHint="Scroll to load the ground-truth point cloud"
+          />
+        </div>
+        <div className="point-cloud-column">
+          <div className="point-cloud-panel-header">
+            <h3>{FIXED_VIEWS.ours.label}</h3>
+          </div>
+          <PointCloudPanel
+            title={FIXED_VIEWS.ours.label}
+            sourceUrl={getPointCloudUrl(FIXED_VIEWS.ours.suffix)}
+            loadHint="Scroll to load our reconstruction"
+          />
+        </div>
+        <div className="point-cloud-column">
+          <div className="point-cloud-panel-header point-cloud-panel-header-select">
+            <label className="viewer-method-picker">
+              <select
+                value={selectedMethodLabel}
+                onChange={(event) => setSelectedMethodLabel(event.target.value)}
+              >
+                {COMPARISON_METHODS.map((method) => (
+                  <option key={method.label} value={method.label}>
+                    {method.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <PointCloudPanel
+            title={selectedMethod?.label ?? 'Comparison method'}
+            sourceUrl={getPointCloudUrl(selectedMethod?.suffix ?? '')}
+            loadHint={`Scroll to load ${selectedMethod?.label ?? 'this method'}`}
+          />
+        </div>
+      </div>
       <div className="viewer-help">
         Drag to rotate · scroll to zoom · right-drag to pan
       </div>
-      <button className="viewer-reset" type="button" data-reset-view>
-        Reset view
-      </button>
     </div>
   );
 }

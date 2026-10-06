@@ -158,17 +158,16 @@ export default function Home() {
       <section className="content-section" id="interactive-result">
         <h2>Interactive reconstruction</h2>
         <p className="section-intro">
-          Explore a prediction-only reconstruction from a representative
-          sequence. Ground-truth geometry is not included.
+          Explore a prediction-only reconstruction from a representative sequence.
         </p>
         <PointCloudViewer />
-        <details className="paired-video">
+        {/* <details className="paired-video">
           <summary>Watch the corresponding reconstruction</summary>
           <video controls muted preload="none" aria-label="Fly-through of the same floor 1 reconstruction">
             <source src={assetUrl('/media/floor1-0505-run1-flythrough.mp4')} type="video/mp4" />
             <track kind="captions" src={assetUrl('/media/floor1-0505-run1.en.vtt')} srcLang="en" label="Visual description" />
           </video>
-        </details>
+        </details> */}
       </section>
 
       <section className="content-section" id="results">
