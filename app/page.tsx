@@ -84,7 +84,7 @@ export default function Home() {
           </div>
           
           <figcaption>
-            Long-sequence 3D reconstruction from omnidirectional video with a frozen perspective backbone (Fig. 1).{' '}
+            Long-sequence 3D reconstruction from omnidirectional video with a frozen perspective backbone.{' '}
             <a href={assetUrl('/media/paper-pipeline.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
           </figcaption>
         </figure>
@@ -149,7 +149,7 @@ export default function Home() {
             </a>
           </div>
           <figcaption>
-            Pipeline overview from the paper (Fig. 2).{' '}
+            Pipeline overview.{' '}
             <a href={assetUrl('/media/paper-pipeline.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
           </figcaption>
         </figure>
@@ -191,7 +191,7 @@ export default function Home() {
             </a>
           </div>
           <figcaption>
-            Qualitative comparison from the paper (Fig. 4). For each sequence,
+            Qualitative comparison. For each sequence,
             trajectories are above the corresponding point clouds.{' '}
             <a href={assetUrl('/media/paper-qualitative.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
           </figcaption>
