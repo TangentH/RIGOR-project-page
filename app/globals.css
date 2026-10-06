@@ -13,9 +13,10 @@ h1 { max-width: 970px; margin: 0 auto; font-size: clamp(2rem, 4vw, 3.1rem); font
 h1 span { color: var(--accent); }
 .tagline { max-width: 720px; margin: 22px auto; color: var(--muted); font-size: 1.12rem; }
 .project-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-.project-link { display: inline-block; min-width: 86px; padding: 6px 18px; border: 1px solid var(--ink); border-radius: 24px; background: var(--ink); color: white; font-size: 15px; text-decoration: none; }
+.project-link { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-width: 86px; padding: 6px 18px; border: 1px solid var(--ink); border-radius: 24px; background: var(--ink); color: white; font-size: 15px; text-decoration: none; }
 .project-link:hover { background: var(--accent); border-color: var(--accent); }
 .project-link.unavailable { border-color: var(--line); background: #f2f4f6; color: #687584; }
+.project-link svg { width: 16px; height: 16px; flex: none; }
 .hero-media { scroll-margin-top: 20px; }
 video { display: block; width: 100%; border-radius: 6px; background: #12181e; }
 .hero-media > p { margin: 12px auto 0; text-align: center; color: var(--muted); font-size: 15px; max-width: 800px; }
@@ -38,6 +39,10 @@ footer { margin-top: 48px; padding: 22px 0; border-top: 1px solid var(--line); t
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
 .authors { max-width: 920px; margin: 19px auto 0; font-size: 1rem; color: var(--muted); }
+.authors sup, .affiliations sup { font-size: 0.72em; vertical-align: super; }
+.affiliations { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 18px; margin: 8px auto 0; color: var(--muted); font-size: 0.98rem; }
+.project-header .project-links { margin-top: 20px; }
+.project-header .paper-figure { margin-top: 30px; }
 .paired-video { margin-top: 14px; }
 .paired-video summary { color: var(--accent); cursor: pointer; text-align: center; }
 .paired-video video { margin-top: 12px; }
@@ -50,3 +55,6 @@ footer { margin-top: 48px; padding: 22px 0; border-top: 1px solid var(--line); t
 .figure-scroll:focus-visible { outline: 3px solid #549bd4; outline-offset: 3px; }
 .paper-figure figcaption { max-width: 900px; margin: 0 auto; line-height: 1.6; }
 .viewer-help { max-width: calc(100% - 30px); line-height: 1.5; }
+.citation-block { max-width: 900px; margin: 0 auto; padding: 18px 20px; overflow-x: auto; border: 1px solid var(--line); border-radius: 6px; background: #f7f9fb; color: var(--ink); font: 14px/1.6 "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace; white-space: pre; }
+
+@media (max-width: 650px) { .affiliations { gap: 8px 14px; font-size: 0.94rem; } .project-header .project-links { margin-top: 16px; } .project-header .paper-figure { margin-top: 24px; } .citation-block { padding: 14px 16px; font-size: 13px; } }
