@@ -158,7 +158,8 @@ export default function Home() {
       <section className="content-section" id="interactive-result">
         <h2>Interactive reconstruction</h2>
         <p className="section-intro">
-          Explore a prediction-only reconstruction from a representative sequence.
+          Compare reconstructions of Floor 5, 2 December 2025, Run 1.
+          Rotate and zoom the reconstructions together to inspect their geometry.
         </p>
         <PointCloudViewer />
         {/* <details className="paired-video">
