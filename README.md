@@ -54,3 +54,30 @@ The 3D preview contains predicted geometry only, not the restricted reference
 LiDAR data. No reference-cloud download link is included. The viewer loads
 approximately 2.7 MB when its section approaches the viewport; the paired video
 loads only when requested.
+
+## Interactive comparison
+
+The viewer contains only Floor 5 (2025-12-02/run_1). Ours and PanoVGGT are fixed;
+the third panel selects the real same-run baseline. Drag, pan and zoom freely;
+all three cameras move together. There are no scene or Top view/3D view switches.
+Detail controls select automatic, lightweight or high-density rendering.
+The maximum budgets are 180k initial/interactive points and 1M settled points;
+small failed reconstructions retain their actual point count without upsampling.
+
+PatchMatch, VGGT-SLAM2, MASt3R-SLAM and windowed VGGT were rerun on the full 492-capture sequence.
+The original archived DA3-Sequential result is also available. Partial maps and
+tracking loss are labelled. Archived results use ROI/ICP evaluation; new SLAM
+illustrations use global trajectory registration and do not claim new
+geometry scores. See ASSET_PROVENANCE.md and the manifest for exact sources.
+
+To export registered predictions, install Python numpy and plyfile, prepare a
+private JSON with scenes (id, label, run, clouds mapping method IDs to local
+registered PLY paths, optional metrics and notes), then run:
+
+```bash
+python scripts/export-comparison.py /path/to/private-input.json public/media/comparison
+```
+
+Each scene requires real Ours/PanoVGGT clouds. Additional methods must use the
+same run and coordinate frame. The exporter rejects unknown method IDs,
+including GT, and duplicate source clouds assigned to different methods.
