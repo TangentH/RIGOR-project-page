@@ -72,20 +72,17 @@ export default function Home() {
 
         <figure className="paper-figure">
           <div className="figure-scroll">
-            <a href={assetUrl('/media/paper-teaser.pdf')} target="_blank" rel="noopener noreferrer" aria-label="Open the full-resolution teaser figure">
-              <Image
-                src={assetUrl('/media/paper-teaser.png')}
-                width={2400}
-                height={662}
-                sizes="(min-width: 1128px) 1080px, 960px"
-                alt="Paper Teaser Figure: overview of the RIGOR method"
-              />
-            </a>
+            <Image
+              src={assetUrl('/media/paper-teaser.png')}
+              width={2400}
+              height={662}
+              sizes="(min-width: 1128px) 1080px, 960px"
+              alt="Paper Teaser Figure: overview of the RIGOR method"
+            />
           </div>
           
           <figcaption>
-            Long-sequence 3D reconstruction from omnidirectional video with a frozen perspective backbone.{' '}
-            <a href={assetUrl('/media/paper-pipeline.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
+            Long-sequence 3D reconstruction from omnidirectional video with a frozen perspective backbone.
           </figcaption>
         </figure>
         
@@ -97,27 +94,30 @@ export default function Home() {
           <track kind="captions" src={assetUrl('/media/rigor-results-overview.en.vtt')} srcLang="en" label="Visual descriptions" />
           Your browser does not support the video element.
         </video>
-        <p>
-          Each panorama becomes a constrained four-view rig for local
-          consistency, capture-level retrieval, and long-range reconstruction.
-        </p>
       </section>
 
       <section className="content-section" id="abstract">
         <h2>Abstract</h2>
         <p>
-          Feed-forward 3D reconstruction models recover dense geometry and
-          camera motion from image streams, but their predictions can become
-          inconsistent over long trajectories. Omnidirectional cameras provide
-          wide spatial coverage, while most pretrained reconstructors expect
-          perspective images. RIGOR bridges this gap without retraining the
-          reconstruction backbone. It treats four perspective views rendered
-          from each panorama as a virtual rig with known co-location and
-          relative orientation, and uses this structure for validated local
-          repair, cyclic multi-view loop retrieval, geometric verification, and
-          global pose-graph optimization. The resulting pipeline improves
-          trajectory accuracy and reconstructed geometry on challenging long
-          construction-site sequences.
+          Recent developments in feed-forward 3D reconstruction resulted in models which
+          can recover dense scene representations and camera motion solely from an image
+          stream. However, such predictions are prone to becoming inconsistent over long
+          trajectories, specifically in demanding environments with repetitive
+          structures, weak textures and dynamic objects or people. One way to mitigate
+          those challenges is to use an omnidirectional camera, which provides wide
+          spatial coverage and captures richer visual information. Yet, the majority of
+          models do not offer support for 360-degree imagery or require additional fine-
+          tuning. To bridge these two aspects, we present RIGOR: a large-scale
+          reconstruction pipeline for gravity-aligned omnidirectional videos that
+          retains a frozen feed-forward perspective backbone and exploits each panorama
+          as a four-view virtual rig. The rig structure is used to detect and repair
+          locally inconsistent predictions, to retrieve loop closures through cyclic
+          four-view consensus, and to geometrically verify candidate revisits before
+          global optimization. Verified constraints drive a Sim(3) pose graph that
+          corrects accumulated rotation, translation, and scale drift along the
+          sequence. We demonstrate that the proposed consistency mechanisms improve both
+          trajectory accuracy and reconstructed geometry over a feed-forward baseline on
+          challenging construction-site sequences.
         </p>
       </section>
 
@@ -125,32 +125,34 @@ export default function Home() {
         <h2>Method</h2>
         <div className="method-summary">
           <p>
-            <strong>Local consistency.</strong> A four-view rig fit identifies
-            an isolated pose and pointmap inconsistency. A correction is
-            accepted only when the shared-view geometry improves.
+            <strong>Local consistency.</strong> The known co-location and
+            relative orientations of four views identify an isolated inconsistent
+            prediction. A valid three-view rig fit proposes a pose correction
+            for the remaining view, keeping its predicted depth, confidence and
+            intrinsics unchanged. The corrected pointmap is accepted only when
+            overlap geometry passes validation.
           </p>
           <p>
             <strong>Long-range consistency.</strong> Four directional
-            descriptors retrieve revisited captures under one cyclic yaw
-            shift. Joint prediction verifies the resulting measurement before
-            a Sim(3) graph update.
+            descriptors are compared across all four cyclic yaw alignments.
+            The best shared alignment must satisfy four-view consensus to
+            retrieve a candidate revisit. Joint feed-forward prediction and
+            geometric checks verify the loop measurement before Sim(3) pose-graph
+            optimization corrects rotation, translation and scale drift.
           </p>
         </div>
         <figure className="paper-figure">
           <div className="figure-scroll">
-            <a href={assetUrl('/media/paper-pipeline.pdf')} target="_blank" rel="noopener noreferrer" aria-label="Open the full-resolution pipeline figure">
-              <Image
-                src={assetUrl('/media/paper-pipeline.png')}
-                width={2400}
-                height={662}
-                sizes="(min-width: 1128px) 1080px, 960px"
-                alt="Paper Figure 2: four-view decomposition, frozen prediction, rig repair, cyclic loop retrieval, joint verification, and global reconstruction"
-              />
-            </a>
+            <Image
+              src={assetUrl('/media/paper-pipeline.png')}
+              width={2400}
+              height={662}
+              sizes="(min-width: 1128px) 1080px, 960px"
+              alt="Paper Figure 2: four-view decomposition, frozen prediction, rig repair, cyclic loop retrieval, joint verification, and global reconstruction"
+            />
           </div>
           <figcaption>
-            Pipeline overview.{' '}
-            <a href={assetUrl('/media/paper-pipeline.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
+            Pipeline overview.
           </figcaption>
         </figure>
       </section>
@@ -158,42 +160,32 @@ export default function Home() {
       <section className="content-section" id="interactive-result">
         <h2>Interactive reconstruction</h2>
         <p className="section-intro">
-          Compare reconstructions of Floor 5, 2 December 2025, Run 1.
+          Explore selected reconstructions from Floors 2, 4 and 5, comparing ground truth, Ours and available baselines.
           Rotate and zoom the reconstructions together to inspect their geometry.
         </p>
         <PointCloudViewer />
-        {/* <details className="paired-video">
-          <summary>Watch the corresponding reconstruction</summary>
-          <video controls muted preload="none" aria-label="Fly-through of the same floor 1 reconstruction">
-            <source src={assetUrl('/media/floor1-0505-run1-flythrough.mp4')} type="video/mp4" />
-            <track kind="captions" src={assetUrl('/media/floor1-0505-run1.en.vtt')} srcLang="en" label="Visual description" />
-          </video>
-        </details> */}
       </section>
 
       <section className="content-section" id="results">
         <h2>Qualitative results</h2>
         <p className="section-intro">
           The paper compares trajectories and reconstructed point clouds on
-          two challenging sequences. Each method is shown on the same
+          two sequences. Each method is shown on the same
           sequence within a row.
         </p>
         <figure className="paper-figure">
           <div className="figure-scroll">
-            <a href={assetUrl('/media/paper-qualitative.pdf')} target="_blank" rel="noopener noreferrer" aria-label="Open the full-resolution qualitative comparison">
-              <Image
-                src={assetUrl('/media/paper-qualitative.png')}
-                width={2400}
-                height={1326}
-                sizes="(min-width: 1128px) 1080px, 960px"
-                alt="Paper Figure 4: trajectories and point clouds for Ours, PanoVGGT, VGGT-SLAM2, MASt3R-SLAM, PatchMatch, and VGGT on two construction-site sequences"
-              />
-            </a>
+            <Image
+              src={assetUrl('/media/paper-qualitative.png')}
+              width={2400}
+              height={1326}
+              sizes="(min-width: 1128px) 1080px, 960px"
+              alt="Paper Figure 4: trajectories and point clouds for Ours, PanoVGGT, VGGT-SLAM2, MASt3R-SLAM, PatchMatch, and VGGT on two construction-site sequences"
+            />
           </div>
           <figcaption>
             Qualitative comparison. For each sequence,
-            trajectories are above the corresponding point clouds.{' '}
-            <a href={assetUrl('/media/paper-qualitative.pdf')} target="_blank" rel="noopener noreferrer">View full resolution</a>.
+            trajectories are above the corresponding point clouds.
           </figcaption>
         </figure>
       </section>

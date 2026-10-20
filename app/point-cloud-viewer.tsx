@@ -12,7 +12,7 @@ type Method = {
   note?: string;
   metrics?: { chamfer_m: number; fscore_025: number };
 };
-type Scene = { id: string; label: string; run: string; radius: number; methods: Method[] };
+type Scene = { id: string; label: string; run: string; radius: number; methods: Method[]; unavailableMethods?: string[] };
 type View = { position: number[]; target: number[]; up: number[] };
 
 // All panels share the exported coordinate frame, camera and scale.
@@ -195,7 +195,8 @@ function PointCloudPanel({ method, radius, sync, quality }: {
 
 function ComparisonViewer() {
   const [scenes, setScenes] = useState<Scene[]>([]);
-  const [baselineId, setBaselineId] = useState('');
+  const [sceneId, setSceneId] = useState('');
+  const [baselineId, setBaselineId] = useState('panovggt');
   const [quality, setQuality] = useState<'auto' | 'light' | 'high'>('auto');
   const [status, setStatus] = useState('Loading reconstruction comparison…');
   useEffect(() => {
@@ -207,23 +208,24 @@ function ComparisonViewer() {
         if (!manifest.scenes?.length || manifest.scenes.some((scene) =>
           !Number.isFinite(scene.radius) || scene.radius <= 0 ||
           !scene.methods.some((method) => method.id === 'ours') ||
-          !scene.methods.some((method) => method.id === 'panovggt'))) throw new Error('Invalid comparison manifest');
+          !scene.methods.some((method) => method.id === 'gt'))) throw new Error('Invalid comparison manifest');
         setScenes(manifest.scenes);
         setStatus('');
       })
       .catch(() => { if (!abort.signal.aborted) setStatus('Reconstruction comparison is unavailable.'); });
     return () => abort.abort();
   }, []);
-  const scene = scenes[0];
-  const sync = useMemo(() => new ViewSync('floor5'), []);
+  const scene = scenes.find((item) => item.id === sceneId) ?? scenes[0];
+  const sync = useMemo(() => new ViewSync(scene?.id ?? ''), [scene?.id]);
+  useEffect(() => () => clearTimeout(sync.interactionTimer), [sync]);
   if (!scene) return <output className="section-intro">{status}</output>;
-  const baselines = scene.methods.filter((method) => !['ours', 'panovggt'].includes(method.id));
+  const baselines = scene.methods.filter((method) => !['gt', 'ours'].includes(method.id));
   const baseline = baselines.find((method) => method.id === baselineId) ?? baselines[0];
-  const shown = [scene.methods.find((method) => method.id === 'ours'), scene.methods.find((method) => method.id === 'panovggt'), baseline];
+  const shown = [scene.methods.find((method) => method.id === 'gt'), scene.methods.find((method) => method.id === 'ours'), baseline];
   return (
     <div className="point-cloud-viewer-grid" aria-label="Interactive reconstruction comparison">
       <div className="viewer-toolbar">
-        <p className="viewer-sequence">{scene.label}</p>
+        <label>Sequence <select aria-label="Reconstruction sequence" value={scene.id} onChange={(event) => { setSceneId(event.target.value); setBaselineId('panovggt'); }}>{scenes.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}</select></label>
         <label>Detail <select value={quality} onChange={(event) => setQuality(event.target.value as 'auto' | 'light' | 'high')}><option value="auto">Auto</option><option value="light">Lightweight</option><option value="high">High · up to 1 million points</option></select></label>
 
       </div>
@@ -232,11 +234,12 @@ function ComparisonViewer() {
           <div className="point-cloud-panel-header">
             {index < 2 ? <h3>{method?.label}</h3> : <label className="viewer-method-picker"><span className="sr-only">Comparison method</span><select aria-label="Comparison method" value={baseline?.id ?? ''} disabled={!baselines.length} onChange={(event) => setBaselineId(event.target.value)}>{baselines.length ? baselines.map((item) => <option key={item.id} value={item.id}>{item.label}</option>) : <option value="">Additional baseline</option>}</select></label>}
           </div>
-          <PointCloudPanel method={method} radius={scene.radius} sync={sync} quality={quality} />
+          <PointCloudPanel key={method?.id ?? 'unavailable'} method={method} radius={scene.radius} sync={sync} quality={quality} />
         </div>)}
       </div>
       <p className="viewer-help">Drag to rotate · scroll to zoom · right-drag to pan · views move together · full detail returns when you stop moving</p>
-      <p className="viewer-protocol">Floor 5 · shared camera and maximum point budget. Ours, PanoVGGT and DA3-Sequential use archived evaluation-region reconstructions. Additional baselines are new full-sequence runs with global trajectory alignment. Partial maps indicate lost tracking. CD is Chamfer distance (lower is better); F@25 is F-score at 25 cm (higher is better). CD and F@25 are archived full-cloud metrics; newly rerun baselines are shown without these scores.</p>
+      {Boolean(scene.unavailableMethods?.length) && <p className="viewer-method-note">Not available for this sequence: {scene.unavailableMethods!.join(', ')}.</p>}
+      <p className="viewer-protocol">CD: Chamfer distance in meters (lower is better). F@25: F-score at a 25 cm distance threshold (higher is better).</p>
     </div>
   );
 }

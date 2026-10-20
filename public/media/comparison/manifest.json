@@ -2,7 +2,7 @@
   "initialPointBudget": 180000,
   "pointBudget": 1000000,
   "seed": 2027,
-  "protocol": "Registered predictions, evaluation ROI; common display origin and rotation; uniform sampling, no independent centering, rescaling, denoising or synthetic points.",
+  "protocol": "Selected registered prediction examples in evaluation ROI; common display origin, rotation and camera per scene. Predictions uniformly sampled to at most one million points. GT: all occupied 30 cm voxel centers, gray, no additional point cap.",
   "scenes": [
     {
       "id": "floor5-1202-run1",
@@ -15,6 +15,28 @@
       ],
       "radius": 23.1343936920166,
       "methods": [
+        {
+          "id": "gt",
+          "label": "Ground truth",
+          "url": "/media/comparison/floor5-1202-run1-gt.ply",
+          "sourcePoints": 69363621,
+          "previewPoints": 34242,
+          "detailPoints": 34242,
+          "sourceSha256": "72886cde2c085af7e267b505d0690935a203cf20c34573106763b1d68cc9af40",
+          "sha256": "db59f41375dc7b38fd29183ef797516d0251f92baa541e468c282bb863d4b3eb",
+          "note": "Reference LiDAR \u00b7 coarse 30 cm grid \u00b7 visualization only",
+          "visualization": {
+            "voxelSizeMeters": 0.3,
+            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
+            "occupiedVoxels": 34242,
+            "pointBudget": null,
+            "gridOrigin": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
         {
           "id": "ours",
           "label": "Ours",
@@ -113,6 +135,184 @@
             "fscore_025": 0.8372334274275866
           }
         }
+      ]
+    },
+    {
+      "id": "floor2-0505-run1",
+      "label": "Floor 2 \u00b7 2025-05-05 \u00b7 Run 1",
+      "run": "floor_2/2025-05-05/run_1",
+      "methods": [
+        {
+          "id": "gt",
+          "label": "Ground truth",
+          "url": "/media/comparison/floor2-0505-run1-gt.ply",
+          "sourcePoints": 82992453,
+          "previewPoints": 58148,
+          "detailPoints": 58148,
+          "sourceSha256": "853fc7cd03a978e78516f8fd7a2292fcf3727b02fc405d42f7a3aaf066604331",
+          "sha256": "c01fe4ae78c0ae76f81391b83a30856626f525d2e8b671ccac411275e7d47645",
+          "note": "Reference LiDAR \u00b7 coarse 30 cm grid \u00b7 visualization only",
+          "visualization": {
+            "voxelSizeMeters": 0.3,
+            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
+            "occupiedVoxels": 58148,
+            "pointBudget": null,
+            "gridOrigin": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "ours",
+          "label": "Ours",
+          "url": "/media/comparison/floor2-0505-run1-ours.ply",
+          "sourcePoints": 10454724,
+          "previewPoints": 180000,
+          "sourceSha256": "e14c3356d43db721ab2e7d2b0a51d420953d0edd6af7970d3d2a058e3a62ae5e",
+          "sha256": "6291cc1d0428526f507877e2ea4a115c58c0073a107a555916738f0deb3fba4d",
+          "metrics": {
+            "chamfer_m": 0.05466491801750408,
+            "fscore_025": 0.9695119273438816
+          },
+          "detailPoints": 1000000,
+          "detailUrl": "/media/comparison/floor2-0505-run1-ours-detail.ply",
+          "detailSha256": "8638a4a9fccda723b7cdeabab763ce1891c2585afbf84d1bfc905ae4b8eac388"
+        },
+        {
+          "id": "panovggt",
+          "label": "PanoVGGT",
+          "url": "/media/comparison/floor2-0505-run1-panovggt.ply",
+          "sourcePoints": 18003036,
+          "previewPoints": 180000,
+          "sourceSha256": "f908ffd06906f1e7f51d1f43cc1982988c253d5c8d52a4a897b3a1e0042d16de",
+          "sha256": "e63163e3ab7467752e6c854e31b07584f045c953268edfcb004d09d2d6bb19ee",
+          "metrics": {
+            "chamfer_m": 0.14272817071950716,
+            "fscore_025": 0.8187627847809333
+          },
+          "detailPoints": 1000000,
+          "detailUrl": "/media/comparison/floor2-0505-run1-panovggt-detail.ply",
+          "detailSha256": "a182aeea6f7011562d822897214a16cd19a8c4781a70d9b39afa39e4dd195d2c"
+        },
+        {
+          "id": "da3-sequential",
+          "label": "DA3-Sequential",
+          "url": "/media/comparison/floor2-0505-run1-da3-sequential.ply",
+          "sourcePoints": 9971779,
+          "previewPoints": 180000,
+          "detailPoints": 1000000,
+          "sourceSha256": "ec6e09c904cb5741ca0668e1f6542b47c5cb4e4f63a303b05ee1deb942053f4a",
+          "sha256": "444129786b2a392821a43039b2ad3bb2f6ba4aebc47e185180770cb74566f392",
+          "detailUrl": "/media/comparison/floor2-0505-run1-da3-sequential-detail.ply",
+          "detailSha256": "7ef021ee941939b5367f2d40a7287a63d413ffae8b88855361cf085511ee3eb2",
+          "metrics": {
+            "chamfer_m": 0.17267282542092388,
+            "fscore_025": 0.7648369866924096
+          }
+        }
+      ],
+      "origin": [
+        -3.5354509353637695,
+        -4.708712577819824,
+        1.3816789388656616
+      ],
+      "radius": 29.362319946289062,
+      "unavailableMethods": [
+        "VGGT-SLAM2",
+        "MASt3R-SLAM",
+        "PatchMatch",
+        "VGGT"
+      ]
+    },
+    {
+      "id": "floor4-1202-run1",
+      "label": "Floor 4 \u00b7 2 Dec 2025 \u00b7 Run 1",
+      "run": "floor_4/2025-12-02/run_1",
+      "methods": [
+        {
+          "id": "gt",
+          "label": "Ground truth",
+          "url": "/media/comparison/floor4-1202-run1-gt.ply",
+          "sourcePoints": 77747131,
+          "previewPoints": 40605,
+          "detailPoints": 40605,
+          "sourceSha256": "c22a01ba8f7452d96d0bdd3ac02f1421ca91037cc8a479a99c655d117d464f68",
+          "sha256": "76344597a56361cc436c312538bd7061d594624dd4358ed6b7cfd0b1dc8094a3",
+          "note": "Reference LiDAR \u00b7 coarse 30 cm grid \u00b7 visualization only",
+          "visualization": {
+            "voxelSizeMeters": 0.3,
+            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
+            "occupiedVoxels": 40605,
+            "pointBudget": null,
+            "gridOrigin": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "id": "ours",
+          "label": "Ours",
+          "url": "/media/comparison/floor4-1202-run1-ours.ply",
+          "sourcePoints": 10528274,
+          "previewPoints": 180000,
+          "sourceSha256": "605ee4c05f4851f44533c4ddd2f05fc8f73c5943a2fd0d15d1f1b7ae1de414f6",
+          "sha256": "bd5db4c68d6a2ef52e970a545b1137c71622f4c2e43d1ea41b97370036f87b34",
+          "metrics": {
+            "chamfer_m": 0.08630180572096585,
+            "fscore_025": 0.9038706162998817
+          },
+          "detailPoints": 1000000,
+          "detailUrl": "/media/comparison/floor4-1202-run1-ours-detail.ply",
+          "detailSha256": "1a51d381362fb7cb2e63cc772e48d34ad4ee677fba2277dfd00d5daf786fe5aa"
+        },
+        {
+          "id": "panovggt",
+          "label": "PanoVGGT",
+          "url": "/media/comparison/floor4-1202-run1-panovggt.ply",
+          "sourcePoints": 15107431,
+          "previewPoints": 180000,
+          "sourceSha256": "4b4808fd4fd944a7ce0b9176b668c966b5bb5d9866aea3476ba14fb0c18b43d4",
+          "sha256": "61c882579c354fcaba62b7b46196b895d1ca13a8bfafde7c5457960376d464b4",
+          "metrics": {
+            "chamfer_m": 0.22306189033442603,
+            "fscore_025": 0.7001618368347071
+          },
+          "detailPoints": 1000000,
+          "detailUrl": "/media/comparison/floor4-1202-run1-panovggt-detail.ply",
+          "detailSha256": "a9eb8565d79a6a7d467e48afb4640ec2b6886b20a168d40cf4401756d3377c48"
+        },
+        {
+          "id": "da3-sequential",
+          "label": "DA3-Sequential",
+          "url": "/media/comparison/floor4-1202-run1-da3-sequential.ply",
+          "sourcePoints": 10200719,
+          "previewPoints": 180000,
+          "detailPoints": 1000000,
+          "sourceSha256": "6abdbe735cd25f822314e9690ed0c435bbf910b672ba59d954fb3dfe08a6c371",
+          "sha256": "e65b3267640509ae37ddd2833f579004a79030d8439684b5f7f11ef45327cd6a",
+          "detailUrl": "/media/comparison/floor4-1202-run1-da3-sequential-detail.ply",
+          "detailSha256": "4052939485f8f7cddda4a23a27e41bfa30980a27c467dd0b6e838f085088d6df",
+          "metrics": {
+            "chamfer_m": 0.19727647928209097,
+            "fscore_025": 0.7972984756178927
+          }
+        }
+      ],
+      "origin": [
+        3.4412660598754883,
+        8.646626472473145,
+        1.3501890897750854
+      ],
+      "radius": 23.322772979736328,
+      "unavailableMethods": [
+        "VGGT-SLAM2",
+        "MASt3R-SLAM",
+        "PatchMatch",
+        "VGGT"
       ]
     }
   ]
