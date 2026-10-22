@@ -1,53 +1,25 @@
 {
-  "initialPointBudget": 180000,
-  "pointBudget": 1000000,
-  "seed": 2027,
-  "protocol": "Selected registered prediction examples in evaluation ROI; common display origin, rotation and camera per scene. Predictions uniformly sampled to at most one million points. GT: all occupied 30 cm voxel centers, gray, no additional point cap.",
   "scenes": [
     {
       "id": "floor5-1202-run1",
       "label": "Floor 5 \u00b7 2025-12-02 \u00b7 Run 1",
-      "run": "floor_5/2025-12-02/run_1",
-      "origin": [
-        -10.000351905822754,
-        2.5195727348327637,
-        1.3585901260375977
-      ],
       "radius": 23.1343936920166,
       "methods": [
         {
           "id": "gt",
           "label": "LiDAR GT",
           "url": "/media/comparison/floor5-1202-run1-gt.ply",
-          "sourcePoints": 69363621,
           "previewPoints": 34242,
           "detailPoints": 34242,
-          "sourceSha256": "72886cde2c085af7e267b505d0690935a203cf20c34573106763b1d68cc9af40",
-          "sha256": "db59f41375dc7b38fd29183ef797516d0251f92baa541e468c282bb863d4b3eb",
-          "note": "Downsampled ground truth (30 cm)",
-          "visualization": {
-            "voxelSizeMeters": 0.3,
-            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
-            "occupiedVoxels": 34242,
-            "pointBudget": null,
-            "gridOrigin": [
-              0,
-              0,
-              0
-            ]
-          }
+          "note": "Downsampled ground truth (30 cm)"
         },
         {
           "id": "ours",
           "label": "Ours",
           "url": "/media/comparison/floor5-1202-run1-ours.ply",
-          "sourcePoints": 9623193,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "5aa80e3814639d548ecfc8b00c5482b914ca22b18caaa4b373e9d0388305a36f",
-          "sha256": "4859650b26e4f4398d971e123a5a4cf1f8497e78a86d7d379ddbc4c0c5db2991",
           "detailUrl": "/media/comparison/floor5-1202-run1-ours-detail.ply",
-          "detailSha256": "4c4211e5cdd26c755d626abf32b9427f58aebdcc3dfbdb87f88e77a8e8333804",
           "metrics": {
             "chamfer_m": 0.06306826058918302,
             "fscore_025": 0.9666826890797721
@@ -57,13 +29,9 @@
           "id": "panovggt",
           "label": "PanoVGGT",
           "url": "/media/comparison/floor5-1202-run1-panovggt.ply",
-          "sourcePoints": 14404766,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "8ba3176b7011523f627b2ac679f84089c85a055f2bf79c1293d09e2209e3f722",
-          "sha256": "ba5b3ebc71ffa60f8b59880a700186be4d6d87d5f21b4ad435547ad78b8abc74",
           "detailUrl": "/media/comparison/floor5-1202-run1-panovggt-detail.ply",
-          "detailSha256": "57946402bc6799728ca9d8fb74887b0979e69ce1d3d173e1224abf5f9d08da3e",
           "metrics": {
             "chamfer_m": 0.17503460637007884,
             "fscore_025": 0.790769046834271
@@ -73,13 +41,9 @@
           "id": "da3-sequential",
           "label": "DA3-Sequential",
           "url": "/media/comparison/floor5-1202-run1-da3-sequential.ply",
-          "sourcePoints": 9107751,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "9afdde4f52460df6da314fdfffb60185c0a02273b1034e4c3d101954240e5b0f",
-          "sha256": "de65701ffa02c81a691974880562d390762862fb3389cea058ba7966a2896cd9",
           "detailUrl": "/media/comparison/floor5-1202-run1-da3-sequential-detail.ply",
-          "detailSha256": "d474185768874bc691b89bfeb5859b83bba9336aa7e10f2ff0d5c913af851658",
           "metrics": {
             "chamfer_m": 0.14236800782775172,
             "fscore_025": 0.8372334274275866
@@ -89,122 +53,81 @@
           "id": "patchmatch",
           "label": "PatchMatch",
           "url": "/media/comparison/floor5-1202-run1-patchmatch.ply",
-          "sourcePoints": 67650,
           "previewPoints": 67650,
           "detailPoints": 67650,
-          "sourceSha256": "bdeff32dcf60b2b92922dfe9f4976e7c9f5b776887e399e0c780aae29b3895d8",
-          "sha256": "477193f15a6e917253d138e823bf1636965c53650910b2c9122c03183b800df8",
           "note": "Tracking loss: frames 95\u2013348, 350\u2013447"
         },
         {
           "id": "vggt-slam2",
           "label": "VGGT-SLAM2",
           "url": "/media/comparison/floor5-1202-run1-vggt-slam2.ply",
-          "sourcePoints": 28356207,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "d1f346369961c434463702b3d309c8aca45678795001f500acaf4aec1e0c0c83",
-          "sha256": "e2e11ec966c0d971d6f978f1d2500dc9b27a5160a8905295658adcc308f1fb26",
-          "detailUrl": "/media/comparison/floor5-1202-run1-vggt-slam2-detail.ply",
-          "detailSha256": "5bd895338370906faa23fe5562cd2fb0d849e6402ec487570a40cb92e32825da"
+          "detailUrl": "/media/comparison/floor5-1202-run1-vggt-slam2-detail.ply"
         },
         {
           "id": "mast3r-slam",
           "label": "MASt3R-SLAM",
           "url": "/media/comparison/floor5-1202-run1-mast3r-slam.ply",
-          "sourcePoints": 2023151,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "b55ad682e27ad9aad34acb86e81ae334a0fdb80e20b2137e2becd1503266c40b",
-          "sha256": "fa9b1bfba9f030fcf8d9256e0f3aecdcbc774c51bfe9926ec20c92e43cfd6c54",
           "detailUrl": "/media/comparison/floor5-1202-run1-mast3r-slam-detail.ply",
-          "detailSha256": "8f44c9d77ffe8fed4fee5cf01fd2c3a7a141d2670969b472f02e6cdd1681705c",
           "note": "Tracking loss occurred"
         },
         {
           "id": "vggt",
           "label": "VGGT",
           "url": "/media/comparison/floor5-1202-run1-vggt.ply",
-          "sourcePoints": 11808000,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "dccabb657cb65b87d6e4b1094c555d0fbba473da03465d2a87942192ee32e7d9",
-          "sha256": "c9d0d54a21ca3761086343116b68aeb451a40ee4c65e06da2536ff26764771d6",
-          "detailUrl": "/media/comparison/floor5-1202-run1-vggt-detail.ply",
-          "detailSha256": "4a5fe0cc83dbb0f19a6464be5a468576b530bbe5e6d72342cdb32e289dee644b"
+          "detailUrl": "/media/comparison/floor5-1202-run1-vggt-detail.ply"
         }
       ]
     },
     {
       "id": "floor2-0505-run1",
       "label": "Floor 2 \u00b7 2025-05-05 \u00b7 Run 1",
-      "run": "floor_2/2025-05-05/run_1",
+      "radius": 29.362319946289062,
       "methods": [
         {
           "id": "gt",
           "label": "LiDAR GT",
           "url": "/media/comparison/floor2-0505-run1-gt.ply",
-          "sourcePoints": 82992453,
           "previewPoints": 58148,
           "detailPoints": 58148,
-          "sourceSha256": "853fc7cd03a978e78516f8fd7a2292fcf3727b02fc405d42f7a3aaf066604331",
-          "sha256": "c01fe4ae78c0ae76f81391b83a30856626f525d2e8b671ccac411275e7d47645",
-          "note": "Downsampled ground truth (30 cm)",
-          "visualization": {
-            "voxelSizeMeters": 0.3,
-            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
-            "occupiedVoxels": 58148,
-            "pointBudget": null,
-            "gridOrigin": [
-              0,
-              0,
-              0
-            ]
-          }
+          "note": "Downsampled ground truth (30 cm)"
         },
         {
           "id": "ours",
           "label": "Ours",
           "url": "/media/comparison/floor2-0505-run1-ours.ply",
-          "sourcePoints": 10454724,
           "previewPoints": 180000,
-          "sourceSha256": "e14c3356d43db721ab2e7d2b0a51d420953d0edd6af7970d3d2a058e3a62ae5e",
-          "sha256": "6291cc1d0428526f507877e2ea4a115c58c0073a107a555916738f0deb3fba4d",
           "metrics": {
             "chamfer_m": 0.05466491801750408,
             "fscore_025": 0.9695119273438816
           },
           "detailPoints": 1000000,
-          "detailUrl": "/media/comparison/floor2-0505-run1-ours-detail.ply",
-          "detailSha256": "8638a4a9fccda723b7cdeabab763ce1891c2585afbf84d1bfc905ae4b8eac388"
+          "detailUrl": "/media/comparison/floor2-0505-run1-ours-detail.ply"
         },
         {
           "id": "panovggt",
           "label": "PanoVGGT",
           "url": "/media/comparison/floor2-0505-run1-panovggt.ply",
-          "sourcePoints": 18003036,
           "previewPoints": 180000,
-          "sourceSha256": "f908ffd06906f1e7f51d1f43cc1982988c253d5c8d52a4a897b3a1e0042d16de",
-          "sha256": "e63163e3ab7467752e6c854e31b07584f045c953268edfcb004d09d2d6bb19ee",
           "metrics": {
             "chamfer_m": 0.14272817071950716,
             "fscore_025": 0.8187627847809333
           },
           "detailPoints": 1000000,
-          "detailUrl": "/media/comparison/floor2-0505-run1-panovggt-detail.ply",
-          "detailSha256": "a182aeea6f7011562d822897214a16cd19a8c4781a70d9b39afa39e4dd195d2c"
+          "detailUrl": "/media/comparison/floor2-0505-run1-panovggt-detail.ply"
         },
         {
           "id": "da3-sequential",
           "label": "DA3-Sequential",
           "url": "/media/comparison/floor2-0505-run1-da3-sequential.ply",
-          "sourcePoints": 9971779,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "ec6e09c904cb5741ca0668e1f6542b47c5cb4e4f63a303b05ee1deb942053f4a",
-          "sha256": "444129786b2a392821a43039b2ad3bb2f6ba4aebc47e185180770cb74566f392",
           "detailUrl": "/media/comparison/floor2-0505-run1-da3-sequential-detail.ply",
-          "detailSha256": "7ef021ee941939b5367f2d40a7287a63d413ffae8b88855361cf085511ee3eb2",
           "metrics": {
             "chamfer_m": 0.17267282542092388,
             "fscore_025": 0.7648369866924096
@@ -214,128 +137,81 @@
           "id": "patchmatch",
           "label": "PatchMatch",
           "url": "/media/comparison/floor2-0505-run1-patchmatch.ply",
-          "sourcePoints": 26074,
           "previewPoints": 26074,
           "detailPoints": 26074,
-          "sourceSha256": "0f679ac2bd585cf6ac687eb81449e32a44a619e00e2e03faca2de24cf4aa1297",
-          "sha256": "651e4557773562f70c1808d9e6167d39d4a6e42d52f6f0c368c89249a162fd52",
           "note": "Tracking loss: frames 103, 437\u2013491"
         },
         {
           "id": "vggt-slam2",
           "label": "VGGT-SLAM2",
           "url": "/media/comparison/floor2-0505-run1-vggt-slam2.ply",
-          "sourcePoints": 19878431,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "2ddce9cba90a181101fbac2cfc758dd00e85298832cc8f1108baa4b21f8e23c6",
-          "sha256": "58dc0767c592e044848f7b2bb6f469213d992bdfcc7e4788d2cbf8313151d8f4",
-          "detailUrl": "/media/comparison/floor2-0505-run1-vggt-slam2-detail.ply",
-          "detailSha256": "73d6fe61515ea4f90b9876d2b6d76c62e93d6bda94af314480e0575f046d0d69"
+          "detailUrl": "/media/comparison/floor2-0505-run1-vggt-slam2-detail.ply"
         },
         {
           "id": "mast3r-slam",
           "label": "MASt3R-SLAM",
           "url": "/media/comparison/floor2-0505-run1-mast3r-slam.ply",
-          "sourcePoints": 10786003,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "7450c033a613fb4e8949f31452bc6875824b752a7596449e8ec92a96a65bf420",
-          "sha256": "f0217c6da19b04ea4abe870ce32ce314d8a44e911442fc55d3176cf307419074",
           "detailUrl": "/media/comparison/floor2-0505-run1-mast3r-slam-detail.ply",
-          "detailSha256": "1b3b5138927234e6815d0bb2bfee18caaa9b29e5389ec79334a8520aac19b5cc",
           "note": "Tracking loss occurred"
         },
         {
           "id": "vggt",
           "label": "VGGT",
           "url": "/media/comparison/floor2-0505-run1-vggt.ply",
-          "sourcePoints": 13536000,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "e05644580493338c7182d81ba825a86978792619d05e56f309c1300cdce62e67",
-          "sha256": "5c397fcf5eaefd269d04553f7b4499f254ea0b2be7241a45a51dbe25f2b59fc7",
-          "detailUrl": "/media/comparison/floor2-0505-run1-vggt-detail.ply",
-          "detailSha256": "8ee2dbbebccd432e1478c9a469c22681320a3f8ae143f20e3e7cd0cb30051273"
+          "detailUrl": "/media/comparison/floor2-0505-run1-vggt-detail.ply"
         }
-      ],
-      "origin": [
-        -3.5354509353637695,
-        -4.708712577819824,
-        1.3816789388656616
-      ],
-      "radius": 29.362319946289062
+      ]
     },
     {
       "id": "floor4-1202-run1",
       "label": "Floor 4 \u00b7 2025-12-02 \u00b7 Run 1",
-      "run": "floor_4/2025-12-02/run_1",
+      "radius": 23.322772979736328,
       "methods": [
         {
           "id": "gt",
           "label": "LiDAR GT",
           "url": "/media/comparison/floor4-1202-run1-gt.ply",
-          "sourcePoints": 77747131,
           "previewPoints": 40605,
           "detailPoints": 40605,
-          "sourceSha256": "c22a01ba8f7452d96d0bdd3ac02f1421ca91037cc8a479a99c655d117d464f68",
-          "sha256": "76344597a56361cc436c312538bd7061d594624dd4358ed6b7cfd0b1dc8094a3",
-          "note": "Downsampled ground truth (30 cm)",
-          "visualization": {
-            "voxelSizeMeters": 0.3,
-            "coordinateRepresentation": "occupied voxel centers, no original sub-voxel positions",
-            "occupiedVoxels": 40605,
-            "pointBudget": null,
-            "gridOrigin": [
-              0,
-              0,
-              0
-            ]
-          }
+          "note": "Downsampled ground truth (30 cm)"
         },
         {
           "id": "ours",
           "label": "Ours",
           "url": "/media/comparison/floor4-1202-run1-ours.ply",
-          "sourcePoints": 10528274,
           "previewPoints": 180000,
-          "sourceSha256": "605ee4c05f4851f44533c4ddd2f05fc8f73c5943a2fd0d15d1f1b7ae1de414f6",
-          "sha256": "bd5db4c68d6a2ef52e970a545b1137c71622f4c2e43d1ea41b97370036f87b34",
           "metrics": {
             "chamfer_m": 0.08630180572096585,
             "fscore_025": 0.9038706162998817
           },
           "detailPoints": 1000000,
-          "detailUrl": "/media/comparison/floor4-1202-run1-ours-detail.ply",
-          "detailSha256": "1a51d381362fb7cb2e63cc772e48d34ad4ee677fba2277dfd00d5daf786fe5aa"
+          "detailUrl": "/media/comparison/floor4-1202-run1-ours-detail.ply"
         },
         {
           "id": "panovggt",
           "label": "PanoVGGT",
           "url": "/media/comparison/floor4-1202-run1-panovggt.ply",
-          "sourcePoints": 15107431,
           "previewPoints": 180000,
-          "sourceSha256": "4b4808fd4fd944a7ce0b9176b668c966b5bb5d9866aea3476ba14fb0c18b43d4",
-          "sha256": "61c882579c354fcaba62b7b46196b895d1ca13a8bfafde7c5457960376d464b4",
           "metrics": {
             "chamfer_m": 0.22306189033442603,
             "fscore_025": 0.7001618368347071
           },
           "detailPoints": 1000000,
-          "detailUrl": "/media/comparison/floor4-1202-run1-panovggt-detail.ply",
-          "detailSha256": "a9eb8565d79a6a7d467e48afb4640ec2b6886b20a168d40cf4401756d3377c48"
+          "detailUrl": "/media/comparison/floor4-1202-run1-panovggt-detail.ply"
         },
         {
           "id": "da3-sequential",
           "label": "DA3-Sequential",
           "url": "/media/comparison/floor4-1202-run1-da3-sequential.ply",
-          "sourcePoints": 10200719,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "6abdbe735cd25f822314e9690ed0c435bbf910b672ba59d954fb3dfe08a6c371",
-          "sha256": "e65b3267640509ae37ddd2833f579004a79030d8439684b5f7f11ef45327cd6a",
           "detailUrl": "/media/comparison/floor4-1202-run1-da3-sequential-detail.ply",
-          "detailSha256": "4052939485f8f7cddda4a23a27e41bfa30980a27c467dd0b6e838f085088d6df",
           "metrics": {
             "chamfer_m": 0.19727647928209097,
             "fscore_025": 0.7972984756178927
@@ -345,59 +221,37 @@
           "id": "patchmatch",
           "label": "PatchMatch",
           "url": "/media/comparison/floor4-1202-run1-patchmatch.ply",
-          "sourcePoints": 572029,
           "previewPoints": 180000,
           "detailPoints": 572029,
-          "sourceSha256": "49fe2a16b0817aaf395562eb8c878addb02f862a87bd804c2ebc0d0168d7642c",
-          "sha256": "72980ba0680419ef8603e00480b6f5d11cbba6d74ea168fbe79ad83be8e54d2d",
           "detailUrl": "/media/comparison/floor4-1202-run1-patchmatch-detail.ply",
-          "detailSha256": "923387bef8ed749e58cc0eff3f6585dfc14e0b0db6baffcf0adabcf4211d7bab",
           "note": "Tracking loss: frames 123\u2013165, 280\u2013309, 375\u2013568"
         },
         {
           "id": "vggt-slam2",
           "label": "VGGT-SLAM2",
           "url": "/media/comparison/floor4-1202-run1-vggt-slam2.ply",
-          "sourcePoints": 52076522,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "20270adc60f4000ed5951a493d361e2ef8199be5950e5dc9aed3fe055f1cbba5",
-          "sha256": "32c30f0eb643d5ce22bcc5fd4100a37a941be306ea8c24af43d891ecc815738f",
-          "detailUrl": "/media/comparison/floor4-1202-run1-vggt-slam2-detail.ply",
-          "detailSha256": "690389ca5acbe62547dd1aca3e73264d545e82ad04847a199d69cdd324d500b9"
+          "detailUrl": "/media/comparison/floor4-1202-run1-vggt-slam2-detail.ply"
         },
         {
           "id": "mast3r-slam",
           "label": "MASt3R-SLAM",
           "url": "/media/comparison/floor4-1202-run1-mast3r-slam.ply",
-          "sourcePoints": 19387410,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "2388f8bb6789dd7227517b1e52f45d17965068f0ca6664036775dbc3223f361e",
-          "sha256": "7c97e7ea25da419e553e8a155968df8df650ad1337516b8a2f75f8d22d6329fe",
           "detailUrl": "/media/comparison/floor4-1202-run1-mast3r-slam-detail.ply",
-          "detailSha256": "546204aed938647ba33d4b1133b4771a19acdd98590dff4eea05a1e7b8410171",
           "note": "Tracking loss occurred"
         },
         {
           "id": "vggt",
           "label": "VGGT",
           "url": "/media/comparison/floor4-1202-run1-vggt.ply",
-          "sourcePoints": 14088000,
           "previewPoints": 180000,
           "detailPoints": 1000000,
-          "sourceSha256": "3290fa49682570685299ce4e1c8a49d16fe97ef1ec96788a62ff41547acd8abc",
-          "sha256": "b2a3a11cb93c01e2c31e0913e927c542f8ceed99e1dcc587f560e34324c85a5a",
-          "detailUrl": "/media/comparison/floor4-1202-run1-vggt-detail.ply",
-          "detailSha256": "41bba7a03ecd9b43f62bfefda7d6eb193f2280aaa4e0a170f891bb7166e049a7"
+          "detailUrl": "/media/comparison/floor4-1202-run1-vggt-detail.ply"
         }
-      ],
-      "origin": [
-        3.4412660598754883,
-        8.646626472473145,
-        1.3501890897750854
-      ],
-      "radius": 23.322772979736328
+      ]
     }
   ]
 }

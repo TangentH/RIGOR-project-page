@@ -14,7 +14,7 @@ type Method = {
   note?: string;
   metrics?: { chamfer_m: number; fscore_025: number };
 };
-type Scene = { id: string; label: string; run: string; radius: number; methods: Method[]; unavailableMethods?: string[] };
+type Scene = { id: string; label: string; radius: number; methods: Method[]; unavailableMethods?: string[] };
 type View = { position: number[]; target: number[]; up: number[] };
 
 // All panels share the exported coordinate frame, camera and scale.
