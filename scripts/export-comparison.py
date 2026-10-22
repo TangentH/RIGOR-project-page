@@ -16,7 +16,7 @@ from pathlib import Path
 import numpy as np
 from plyfile import PlyData, PlyElement
 
-METHODS = {'gt': 'Ground truth', 'ours': 'Ours', 'panovggt': 'PanoVGGT', 'da3-sequential': 'DA3-Sequential',
+METHODS = {'gt': 'LiDAR GT', 'ours': 'Ours', 'panovggt': 'PanoVGGT', 'da3-sequential': 'DA3-Sequential',
            'vggt-slam2': 'VGGT-SLAM2', 'mast3r-slam': 'MASt3R-SLAM',
            'patchmatch': 'PatchMatch', 'vggt': 'VGGT'}
 BUDGET = 1_000_000
@@ -65,7 +65,9 @@ def main():
         xyz, _ = load(clouds['ours'])
         origin = (xyz.min(0) + xyz.max(0)) / 2
         radius = float(np.linalg.norm(xyz - origin, axis=1).max())
-        scene = {k: spec[k] for k in ['id', 'label', 'run']}
+        scene = {k: spec[k] for k in ['id', 'run']}
+        floor, date, run = spec['run'].split('/')
+        scene['label'] = f"Floor {floor.removeprefix('floor_')} · {date} · Run {run.removeprefix('run_')}"
         scene.update(origin=origin.tolist(), radius=radius, methods=[])
         hashes = set()
         for method, path in clouds.items():

@@ -75,13 +75,30 @@ is applied. Up to 6,000 predicted points per view are retained uniformly before
 the shared display sampling; no geometry is synthesized. This is a transparent
 windowed rerun, not a claim that it exactly reproduces the paper's older run.
 
+### Additional Floor 2 and Floor 4 reruns
+
+The same four baseline methods have also been run for Floor 2 (2025-05-05,
+Run 1; 564 panoramas) and Floor 4 (2025-12-02, Run 1; 587 panoramas).
+PatchMatch, VGGT, VGGT-SLAM2 and MASt3R-SLAM results use the same
+input sizes and method settings described above. The original RGB source is
+the restored official bag; these are fresh runs, not recovered historical
+predictions. Each uses the same display origin and rotation as the existing
+panels, with global trajectory alignment and no ICP or shape correction.
+VGGT-SLAM2 accepts five loop closures on Floor 2 and three on Floor 4.
+MASt3R-SLAM exports 92 and 157 reconstructed keyframes respectively, with
+tracking losses and relocalization attempts preserved. Keyframe counts are
+not counts of all successfully tracked input captures. These reruns have no
+new benchmark CD/F@25 scores. PatchMatch returns poses for 508/564 captures on Floor 2 and 290/587 on Floor 4,
+producing 26,074 and 572,029 dense points respectively. All four new methods
+are available on both floors.
+
 ### Display sampling
 
 Uniform random sampling (seed 2027) preserves source geometry and RGB. The
 initial budget is at most 180,000 points and the detail budget at most 1,000,000
 points per method. Source clouds smaller than these caps are not upsampled.
-PatchMatch therefore displays all its actual 67,650 points and does not download
-a duplicate high-detail file. During interaction, larger clouds draw a uniform
+PatchMatch on Floor 5 (67,650 points) and Floor 2 (26,074 points) needs no
+duplicate high-detail file; Floor 4 progressively loads its 572,029 points. During interaction, larger clouds draw a uniform
 180k prefix, restoring full detail after movement stops. Auto mode upgrades on
 desktop devices with sufficient reported memory and without data-saving
 mode; mobile defaults to lightweight detail. Users can choose detail manually.

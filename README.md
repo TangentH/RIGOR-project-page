@@ -56,8 +56,8 @@ Only media used by the current page are included in the public directory.
 
 ## Interactive comparison
 
-The scene selector offers Floor 5 (2025-12-02/run_1), Floor 2 (2025-05-05/run_1)
-and Floor 4 (2025-12-02/run_1). Ground truth and Ours are fixed; the third panel
+The scene selector offers Floor 5 · 2025-12-02 · Run 1,
+Floor 2 · 2025-05-05 · Run 1 and Floor 4 · 2025-12-02 · Run 1. Ground truth and Ours are fixed; the third panel
 selects an available same-run baseline. Missing methods are explicitly listed.
 All three cameras move together; each new scene resets the shared view.
 Previous downloads and GPU buffers are released on switching. There is no Top view/3D view split.
@@ -68,10 +68,11 @@ This downloadable coarse reference is for visualization, not evaluation.
 Predictions retain the 180k initial/interactive and 1M settled budgets;
 small failed reconstructions retain their actual point count without upsampling.
 
-PatchMatch, VGGT-SLAM2, MASt3R-SLAM and windowed VGGT were rerun on the full 492-capture sequence.
-Archived PanoVGGT and DA3-Sequential results are selectable on all three floors;
-the four additional SLAM/windowed baselines are currently available only for Floor 5. Partial maps and
-tracking loss are labelled. Archived results use ROI/ICP evaluation; new SLAM
+PatchMatch, VGGT-SLAM2, MASt3R-SLAM and windowed VGGT were rerun on all three
+complete input sequences: 492 captures on Floor 5, 564 on Floor 2 and 587 on
+Floor 4. Archived PanoVGGT and DA3-Sequential results are also selectable on
+all three floors. Partial maps and tracking loss are labelled; MASt3R pose
+exports count reconstructed keyframes, not all tracked input captures. Archived results use ROI/ICP evaluation; new SLAM
 illustrations use global trajectory registration and do not claim new
 geometry scores. See ASSET_PROVENANCE.md and the manifest for exact sources.
 

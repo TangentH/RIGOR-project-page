@@ -6,6 +6,8 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader.js';
 import { assetUrl } from './asset-url';
 
+const BASELINE_ORDER = ['panovggt', 'da3-sequential', 'patchmatch', 'vggt-slam2', 'mast3r-slam', 'vggt'];
+
 type Method = {
   id: string; label: string; url: string; previewPoints: number;
   detailUrl?: string; detailPoints?: number;
@@ -219,7 +221,9 @@ function ComparisonViewer() {
   const sync = useMemo(() => new ViewSync(scene?.id ?? ''), [scene?.id]);
   useEffect(() => () => clearTimeout(sync.interactionTimer), [sync]);
   if (!scene) return <output className="section-intro">{status}</output>;
-  const baselines = scene.methods.filter((method) => !['gt', 'ours'].includes(method.id));
+  const baselines = scene.methods.filter((method) => !['gt', 'ours'].includes(method.id))
+    .sort((a, b) => (BASELINE_ORDER.indexOf(a.id) === -1 ? 999 : BASELINE_ORDER.indexOf(a.id))
+      - (BASELINE_ORDER.indexOf(b.id) === -1 ? 999 : BASELINE_ORDER.indexOf(b.id)));
   const baseline = baselines.find((method) => method.id === baselineId) ?? baselines[0];
   const shown = [scene.methods.find((method) => method.id === 'gt'), scene.methods.find((method) => method.id === 'ours'), baseline];
   return (
